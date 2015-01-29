@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.8" icons="true" automaticImage="JPEG">  
+  <object id="1" language="java" name="services.jobschedule.CheckEmailAndPrice" project="DealWatcher" 
+    file="/DealWatcher/src/main/java/services/jobschedule/CheckEmailAndPrice.java" binary="false" 
+    label="checkEmailAndPrice" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="276" y="0"/>    
+    <execution id="2">      
+      <position height="63" width="165" x="5" y="113"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="63" width="165" x="5" y="328"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="63" width="165" x="5" y="417"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="63" width="165" x="5" y="488"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="services.email.EmailChecker" project="DealWatcher" 
+    file="/DealWatcher/src/main/java/services/email/EmailChecker.java" binary="false" label="emailChecker" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="314" y="0"/>    
+    <execution id="4">      
+      <position height="21" width="116" x="174" y="134"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="63" width="116" x="174" y="167"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="services.data.DataService" project="DealWatcher" 
+    file="/DealWatcher/src/main/java/services/data/DataService.java" binary="false" label="dataService" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="406" y="0"/>    
+    <execution id="7">      
+      <position height="21" width="104" x="294" y="349"/>    
+    </execution>    
+    <execution id="19">      
+      <position height="21" width="104" x="294" y="243"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="21" width="104" x="294" y="266"/>    
+    </execution>    
+    <execution id="21">      
+      <position height="21" width="104" x="294" y="294"/>    
+    </execution>  
+  </object>  
+  <object id="22" language="java" name="services.requesthander.RequestHandler" project="DealWatcher" 
+    file="/DealWatcher/src/main/java/services/requesthander/RequestHandler.java" binary="false" label="requestHandler" 
+    type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="610" y="0"/>    
+    <execution id="17">      
+      <position height="21" width="133" x="529" y="188"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="63" width="133" x="529" y="222"/>    
+    </execution>    
+    <execution id="25">      
+      <position height="63" width="133" x="529" y="245"/>    
+    </execution>    
+    <execution id="27">      
+      <position height="63" width="133" x="529" y="273"/>    
+    </execution>  
+  </object>  
+  <object id="29" language="java" name="services.jobschedule.PriceRefresher" project="DealWatcher" 
+    file="/DealWatcher/src/main/java/services/jobschedule/PriceRefresher.java" binary="false" label="priceRefresher" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="600" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="123" x="402" y="438"/>    
+    </execution>  
+  </object>  
+  <object id="30" language="java" name="services.email.SendEmailForDeals" project="DealWatcher" 
+    file="/DealWatcher/src/main/java/services/email/SendEmailForDeals.java" binary="false" label="sendEmailForDeals" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="826" y="0"/>    
+    <execution id="13">      
+      <position height="21" width="156" x="666" y="509"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="check():void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="getDistinctUrls():java.util.Map&lt;RequestSite,List&lt;String&gt;&gt;">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="9" operation="call():V">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="12" operation="sendNotifyEmail():void">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="16" operation="requestHander(java.util.List&lt;domain.Request&gt;):void">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="24" operation="saveWatchedItemList(java.util.List&lt;domain.WatchedItem&gt;):void" x="355" y="247">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>  
+  <message id="26" operation="saveUserList(java.util.List&lt;domain.RegisteredUser&gt;):void" x="360" y="225">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="28" operation="removeUrlList(domain.RegisteredUser,java.util.List&lt;java.lang.String&gt;):void" x="357" 
+    y="277">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="21"/>  
+  </message>
+</sequence-diagram>

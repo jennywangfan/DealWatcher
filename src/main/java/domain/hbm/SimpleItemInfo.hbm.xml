@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 15, 2015 12:58:48 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="domain.SimpleItemInfo" table="SIMPLEITEMINFO">
+
+		<composite-id>
+			<key-property name="url" type="java.lang.String">
+				<column name="URL" sql-type="varchar(500)"></column>
+			</key-property>
+			<key-property name="lastestUpdateDate" type="java.util.Date">
+				<column name="LASTESTUPDATEDATE"></column>
+			</key-property>
+		</composite-id>
+		<property name="originalPrice" type="java.lang.Double">
+			<column name="ORIGINALPRICE" />
+		</property>
+		<property name="salePrice" type="java.lang.Double">
+			<column name="SALEPRICE" />
+		</property>
+
+		<property name="stockStatus" type="java.lang.Boolean">
+			<column name="STOCKSTATUS" />
+		</property>
+
+		<property name="siteInfo">
+			<column name="SITEINFO" />
+			<type name="org.hibernate.type.EnumType">
+				<param name="type">12</param>
+				<param name="enumClass">domain.RequestSite</param>
+			</type>
+		</property>
+	</class>
+</hibernate-mapping>

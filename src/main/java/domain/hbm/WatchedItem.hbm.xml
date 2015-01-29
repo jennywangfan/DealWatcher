@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 29, 2015 5:05:33 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="domain.WatchedItem" table="WATCHEDITEM">
+		<composite-id>
+			<key-many-to-one name="user" class="domain.RegisteredUser">
+				<column name="USER"></column>
+			</key-many-to-one>
+			<key-property name="url" type="java.lang.String">
+				<column name="URL" sql-type="varchar(500)" ></column>
+			</key-property>
+		</composite-id>
+
+
+		<property name="initialOriginalPrice" type="java.lang.Double">
+			<column name="INITIALORIGINALPRICE" />
+		</property>
+		<property name="currentOriginalPrice" type="java.lang.Double">
+			<column name="CURRENTORIGINALPRICE" />
+		</property>
+		<property name="lastOriginalPrice" type="java.lang.Double">
+			<column name="LASTORIGINALPRICE" />
+		</property>
+		<property name="lastSalePrice" type="java.lang.Double">
+			<column name="LASTSALEPRICE" />
+		</property>
+		<property name="initialSalePrice" type="java.lang.Double">
+			<column name="INITIALSALEPRICE" />
+		</property>
+		<property name="currentSalePrice" type="java.lang.Double">
+			<column name="CURRENTSALEPRICE" />
+		</property>
+		<property name="initialStockStatus" type="java.lang.Boolean"
+			access="field">
+			<column name="INITIALSTOCKSTATUS" />
+		</property>
+		<property name="currentStockStatus" type="java.lang.Boolean"
+			access="field">
+			<column name="CURRENTSTOCKSTATUS" />
+		</property>
+		<property name="lastStockStatus" type="java.lang.Boolean"
+			access="field">
+			<column name="LASTSTOCKSTATUS" />
+		</property>
+		<property name="lastUpdateTimeStamp" type="java.util.Date">
+			<column name="LASTUPDATETIMESTAMP" />
+		</property>
+		<property name="siteInfo">
+            <column name="SITEINFO" />
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">domain.RequestSite</param>
+            </type>
+        </property>
+	</class>
+</hibernate-mapping>

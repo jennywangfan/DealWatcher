@@ -18,7 +18,19 @@ public enum RequestSite {
    			return RequestSite.BLOOMINGDALES;
    		else
    			return RequestSite.UNRECOGNIZEDSITE;
+   		
    	}
+       public static int getSiteHoldTimeSeconds(RequestSite site){
+    	   switch(site){
+    	   case BERGDORFGOODMAN :
+    		   return 10;
+    	   case BLOOMINGDALES:
+    		   return 10;
+		   default:
+			   break;
+    	   }
+		return 0;
+       }
 
    	
 }

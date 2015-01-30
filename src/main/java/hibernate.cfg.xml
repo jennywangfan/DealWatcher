@@ -7,9 +7,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/dinnertogether</property>
-		<property name="connection.username">2gether</property>
-		<property name="connection.password">dinnertogether</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/yourdatabase</property>
+		<property name="connection.username">username</property>
+		<property name="connection.password">password</property>
 
 		<property name="hibernate.c3p0.max_size">20</property>
 		<property name="hibernate.c3p0.min_size">1</property>

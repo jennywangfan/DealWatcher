@@ -118,6 +118,7 @@ public class EmailTemplate implements Serializable{
 		for(String url : successAddedUrl){
 			sb.append(url);
 			sb.append(lineSeperator);
+			sb.append(lineSeperator);
 		}
 		this.content = sb.toString();
 	}

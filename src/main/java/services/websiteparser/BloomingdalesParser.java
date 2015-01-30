@@ -20,7 +20,7 @@ import domain.SimpleItemInfo;
 * @author Fan Wang
 * @date Jan 28, 2015
  */
-public class BloomingdalesParser implements ParseDealSite {
+public class BloomingdalesParser implements DealSiteParser {
 	
 	private static Logger log = LoggerFactory.getLogger(QuartzJobBean.class);
 

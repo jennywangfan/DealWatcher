@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import services.data.DataService;
 import domain.EmailConstant;
 import domain.EmailTemplate;
+import domain.RequestSite;
 import domain.SpringContextUtils;
 import domain.WatchedItem;
 
@@ -19,7 +20,6 @@ import domain.WatchedItem;
  * <p>
  * Description: Class for sending notifications for those price changed items
  * </p>
- * 
  * @author Fan Wang
  * @date Jan 28, 2015
  */
@@ -55,7 +55,33 @@ public class SendEmailForDeals {
 			emailSender.sendMailByAsynchronousMode(email);
 		}
 	}
-
+	 /**
+	 *<p>
+	 * Title: sendNotifyEmail
+	 * </p>
+	 * <p>
+	 * Description: Get all price changed items and send email to notify users
+	 * </p>
+	 */
+	public void sendNotifyEmail(RequestSite siteInfo) {
+		DataService ds = (DataService) SpringContextUtils
+				.getBean("dataservice");
+		List<?> dealList = ds.getPriceChangedItems(siteInfo);
+		EmailSender emailSender = (EmailSender) SpringContextUtils
+				.getBean("emailsender");
+		for (Object o : dealList) {
+			WatchedItem wi = (WatchedItem) o;
+			EmailTemplate email;
+			try {
+				email = prepareEmail(wi);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				log.info(e.getMessage());
+				continue;
+			}
+			emailSender.sendMailByAsynchronousMode(email);
+		}
+	}
 	/**
 	 * 
 	 * <p>
@@ -73,67 +99,60 @@ public class SendEmailForDeals {
 		log.debug("Start to Prepare Email");
 		EmailTemplate email = new EmailTemplate();
 		email.setTo(wi.getUser().getEmailAddress());
-		email.setSubject(EmailConstant.itemPriceChanged);
+		//email.setSubject(EmailConstant.itemPriceChanged);
 		StringBuilder content = new StringBuilder();
 		String space = "   ";
 		content.append(wi.getUrl());
 		content.append(EmailConstant.lineSeperator);
-		if (wi.isCurrentStockStatus() != wi.isInitialStockStatus()) {
-			if (wi.isCurrentStockStatus()) {
-				if (wi.isLastStockStatus() != wi.isCurrentStockStatus()) {
-					email.setSubject(EmailConstant.itemBackInStock);
-					content.append(EmailConstant.inStock);
-					content.append(EmailConstant.lineSeperator);
-					if (wi.getCurrentOriginalPrice().equals(
-							wi.getCurrentSalePrice())) {
-						content.append(EmailConstant.PriceIs);
-						content.append(wi.getCurrentOriginalPrice());
-					} else {
-						content.append(EmailConstant.originalPriceIs);
-						content.append(wi.getCurrentOriginalPrice());
-						content.append(EmailConstant.lineSeperator);
-						content.append(EmailConstant.salePriceIs);
-						content.append(wi.getCurrentSalePrice());
-					}
+		
+		if(wi.isCurrentStockStatus()){
+			if(!wi.isInitialStockStatus()){
+				email.setSubject(EmailConstant.itemBackInStock);
+				content.append(EmailConstant.inStock);
+				content.append(EmailConstant.lineSeperator);
+				if (wi.getCurrentOriginalPrice().equals(
+						wi.getCurrentSalePrice())) {
+					content.append(EmailConstant.PriceIs);
+					content.append(wi.getCurrentOriginalPrice());
 				} else {
-					throw new Exception("Email sent during last update");
+					content.append(EmailConstant.originalPriceIs);
+					content.append(wi.getCurrentOriginalPrice());
+					content.append(EmailConstant.lineSeperator);
+					content.append(EmailConstant.salePriceIs);
+					content.append(wi.getCurrentSalePrice());
 				}
-			} else {
-				if (wi.isCurrentStockStatus() != wi.isLastStockStatus())
-					email.setSubject(EmailConstant.outOfStock);
-				else
-					throw new Exception("Email sent during last update");
-			}
-		} else {
-			if (wi.isCurrentStockStatus()) {
+			}else{
 				email.setSubject(EmailConstant.itemPriceChanged);
-				if (!wi.getCurrentOriginalPrice().equals(
-						wi.getInitialOriginalPrice()))
-					if (!wi.getCurrentOriginalPrice().equals(
-							wi.getLastOriginalPrice())) {
-						content.append(EmailConstant.originalPriceWas);
-						content.append(wi.getInitialOriginalPrice());
-						content.append(space);
-						content.append(EmailConstant.originalPriceIs);
-						content.append(wi.getCurrentOriginalPrice());
-					} else
-						throw new Exception("Email sent during last update");
-			} else {
-				if (!wi.getCurrentSalePrice().equals(wi.getInitialSalePrice())) {
-					if (!wi.getCurrentSalePrice().equals(wi.getLastSalePrice())) {
-						content.append(EmailConstant.salePriceWas);
-						content.append(wi.getInitialSalePrice());
-						content.append(space);
-						content.append(EmailConstant.salePriceIs);
-						content.append(wi.getCurrentSalePrice());
-					} else
-						throw new Exception("Email sent during last update");
+				boolean boPrice = wi.getCurrentOriginalPrice().equals(wi.getInitialOriginalPrice());
+				boolean bsPrice = wi.getCurrentSalePrice().equals(wi.getInitialSalePrice());
+				if(boPrice && bsPrice)
+				   throw new Exception("Nothing Changed for this item");
+				if(!boPrice){
+					content.append(EmailConstant.originalPriceWas);
+					content.append(wi.getInitialOriginalPrice());
+					content.append(space);
+					content.append(EmailConstant.originalPriceIs);
+					content.append(wi.getCurrentOriginalPrice());
 				}
-				else
-					log.info("Nothing changed for this item");
-
+				if(!bsPrice){
+					content.append(EmailConstant.lineSeperator);
+					content.append(EmailConstant.salePriceWas);
+					content.append(wi.getInitialSalePrice());
+					content.append(space);
+					content.append(EmailConstant.salePriceIs);
+					content.append(wi.getCurrentSalePrice());
+				}
 			}
+		}else{
+			if(wi.isInitialStockStatus()){
+				email.setSubject(EmailConstant.itemOutOfStock);
+				content.append(EmailConstant.outOfStock);
+			}
+			else
+				throw new Exception("Nothing Changed for this item");
 		}
+		
+		
 		email.setContent(content.toString());
 		log.debug("Email prepared " + email.toString());
 		return email;

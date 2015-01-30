@@ -19,7 +19,7 @@ import domain.SimpleItemInfo;
 * @author Fan Wang
 * @date Jan 28, 2015
  */
-public interface ParseDealSite {
+public interface DealSiteParser {
 	
 	public SimpleItemInfo parseURL(String url) throws IOException;
 	/**

@@ -15,8 +15,8 @@
 		<property name="host" value="smtp.gmail.com" />
 		<property name="protocol" value="smtp" />
 		<property name="port" value="587" />
-		<property name="username" value="jennywangfan@gmail.com" />
-		<property name="password" value="Jenny_12345" />
+		<property name="username" value="usingyouremail@gmail.com" />
+		<property name="password" value="yourpassword" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>
@@ -30,8 +30,8 @@
 		<property name="host" value="smtp.gmail.com" />
 		<property name="storeType" value="imaps" />
 		<property name="port" value="465" />
-		<property name="userName" value="jennywangfan@gmail.com" />
-		<property name="password" value="Jenny_12345" />
+		<property name="userName" value="usingyouremail@gmail.com" />
+		<property name="password" value="yourpassword" />
 		<property name="props">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>
@@ -43,13 +43,10 @@
 	</bean>
 	<bean id="dealmailsender" class="services.email.SendEmailForDeals"></bean>
 	<bean id="dataservice" class="services.data.DataService"></bean>
-	<bean id="bgparser" class="services.websiteparser.BergdorfGoodmanParser"></bean>
-	<bean id="bdparser" class="services.websiteparser.BloomingdalesParser"></bean>
 	<bean id="registhandler" class="services.requesthander.RegistrationHandler"></bean>
 	<bean id="watchhandler" class="services.requesthander.WatchRequestHandler"></bean>
 	<bean id="removehandler" class="services.requesthander.RemoveRequestHandler"></bean>
-	<bean id="quotedprintablecodec" class="org.apache.commons.codec.net.QuotedPrintableCodec"></bean>
-	<!-- quartz job schedule -->
+  <!-- quartz job schedule -->
 	<bean name="emailcheckingjob"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 

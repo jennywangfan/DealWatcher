@@ -265,6 +265,32 @@ public class DataService {
 		}
 		return itemList;
 	}
+	/**
+	 * 
+	* <p>Title: getPriceChangedItems</p>
+	* <p>Description: Get a list of WatchedItems with price or status stock changed</p>
+	* @param site
+	* @return
+	 */
+	public List<?> getPriceChangedItems(RequestSite site) {
+		log.debug("Getting all items with price changed");
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		List<?> itemList = null;
+		try {
+			Transaction trans = session.beginTransaction();
+			String sql = "select witem from  WatchedItem  witem where witem.siteInfo = :site and ((witem.lastOriginalPrice <> witem.currentOriginalPrice or witem.lastSalePrice"
+					+ " <> witem.currentSalePrice or witem.lastStockStatus <> witem.currentStockStatus) and (witem.initialOriginalPrice <> witem.currentOriginalPrice or "
+					+ "witem.initialSalePrice <> witem.currentSalePrice or witem.initialStockStatus <> witem.currentStockStatus)) group by witem.url";
+			itemList = session.createQuery(sql).setParameter("site", site).list();
+
+			trans.commit();
+
+		} finally {
+			if (session != null)
+				session.close();
+		}
+		return itemList;
+	}
 
 	/**
 	 * 

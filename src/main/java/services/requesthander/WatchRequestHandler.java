@@ -10,8 +10,8 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import services.data.DataService;
 import services.email.EmailSender;
-import services.websiteparser.BergdorfGoodmanParser;
-import services.websiteparser.BloomingdalesParser;
+import services.websiteparser.DealParserFactory;
+import services.websiteparser.DealSiteParser;
 import domain.EmailConstant;
 import domain.EmailTemplate;
 import domain.RegisteredUser;
@@ -45,8 +45,8 @@ public class WatchRequestHandler implements RequestHandler {
 			user.setEmailAddress(userEmail);
 			
 			DataService ds = (DataService)SpringContextUtils.getBean("dataservice");
-			BergdorfGoodmanParser bgp = (BergdorfGoodmanParser) SpringContextUtils.getBean("bgparser");
-			BloomingdalesParser bdp = (BloomingdalesParser)SpringContextUtils.getBean("bdparser");
+			DealSiteParser bgp = DealParserFactory.getParser(RequestSite.BERGDORFGOODMAN);
+			DealSiteParser bdp = DealParserFactory.getParser(RequestSite.BLOOMINGDALES);
 			List<String> successAddedUrl = new ArrayList<String>();
 			for(String url : r.getUrllist()){
 				WatchedItem wi = new WatchedItem();

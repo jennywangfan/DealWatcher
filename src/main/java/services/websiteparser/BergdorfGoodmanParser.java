@@ -20,7 +20,7 @@ import domain.SimpleItemInfo;
 * @author Fan Wang
 * @date Jan 28, 2015
  */
-public class BergdorfGoodmanParser implements ParseDealSite {
+public class BergdorfGoodmanParser implements DealSiteParser {
 	
 	private static Logger log = LoggerFactory.getLogger(QuartzJobBean.class);
 

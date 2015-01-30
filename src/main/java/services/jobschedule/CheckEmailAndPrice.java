@@ -10,6 +10,7 @@ import java.util.concurrent.Future;
 
 import javax.mail.MessagingException;
 
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
@@ -18,7 +19,6 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import services.data.DataService;
 import services.email.EmailChecker;
-import services.email.SendEmailForDeals;
 import domain.RequestSite;
 import domain.SpringContextUtils;
 
@@ -29,6 +29,7 @@ import domain.SpringContextUtils;
 * @author Fan Wang
 * @date Jan 28, 2015
  */
+@DisallowConcurrentExecution
 public class CheckEmailAndPrice extends QuartzJobBean {
 	private static Logger log = LoggerFactory.getLogger(QuartzJobBean.class);
 
@@ -39,7 +40,6 @@ public class CheckEmailAndPrice extends QuartzJobBean {
 	protected void executeInternal(JobExecutionContext context)
 			throws JobExecutionException {
 		
-		// TODO Auto-generated method stub
 		log.debug("Email checking job started");
 		EmailChecker emailChecker = (EmailChecker)SpringContextUtils.getBean("mailchecker");
 		DataService ds = (DataService)SpringContextUtils.getBean("dataservice");
@@ -67,12 +67,6 @@ public class CheckEmailAndPrice extends QuartzJobBean {
 				}
 			}
 			
-			
-			
-			if((urlMap.containsKey(RequestSite.BERGDORFGOODMAN) && bgSuccess.get() || (urlMap.containsKey(RequestSite.BLOOMINGDALES) && bdSuccess.get()))&&bdSuccess.get()){
-				SendEmailForDeals sendNotify = (SendEmailForDeals) SpringContextUtils.getBean("dealmailsender");				
-				sendNotify.sendNotifyEmail();
-			}
 			if(urlMap.containsKey(RequestSite.BERGDORFGOODMAN) && !bgSuccess.get()){
 			    log.error("Something wrong when checking bergdorfgoodman Urls");
 			}

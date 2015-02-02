@@ -20,87 +20,7 @@ public class EmailTemplate implements Serializable{
 	private String[] bcc;
 	
 	
-    //private Content[] content;
     private String signiture;
-	
-    class Content{
-    	private String url;
-    	private Double iniOriPrice;
-    	private Double curOriPrice;
-    	private Double iniSalePrice;
-    	private Double curSalePrice;
-    	private boolean iniStockStatus;
-    	private boolean curStockStatus;
-		public String getUrl() {
-			return url;
-		}
-		public void setUrl(String url) {
-			this.url = url;
-		}
-		public Double getIniOriPrice() {
-			return iniOriPrice;
-		}
-		public void setIniOriPrice(Double iniOriPrice) {
-			this.iniOriPrice = iniOriPrice;
-		}
-		public Double getCurOriPrice() {
-			return curOriPrice;
-		}
-		public void setCurOriPrice(Double curOriPrice) {
-			this.curOriPrice = curOriPrice;
-		}
-		public Double getIniSalePrice() {
-			return iniSalePrice;
-		}
-		public void setIniSalePrice(Double iniSalePrice) {
-			this.iniSalePrice = iniSalePrice;
-		}
-		public Double getCurSalePrice() {
-			return curSalePrice;
-		}
-		public void setCurSalePrice(Double curSalePrice) {
-			this.curSalePrice = curSalePrice;
-		}
-		public boolean isIniStockStatus() {
-			return iniStockStatus;
-		}
-		public void setIniStockStatus(boolean iniStockStatus) {
-			this.iniStockStatus = iniStockStatus;
-		}
-		public boolean isCurStockStatus() {
-			return curStockStatus;
-		}
-		public void setCurStockStatus(boolean curStockStatus) {
-			this.curStockStatus = curStockStatus;
-		}
-		
-		public String toString(){
-			StringBuilder sb = new StringBuilder();
-			sb.append(url);
-			String newLine = System.getProperty("line.separator");
-			sb.append(newLine);
-			if(this.iniOriPrice != this.curOriPrice){
-				sb.append("Original Price change from " + this.iniOriPrice +"to " + this.curOriPrice);
-				sb.append(newLine);
-			}
-			if(this.iniSalePrice != this.curSalePrice)
-			{
-				sb.append("Sale Price changed from " + this.iniSalePrice +"to " + this.curSalePrice);
-				sb.append(newLine);
-			}
-			if(this.iniStockStatus != this.curStockStatus){
-				if(iniStockStatus)
-				sb.append("Item is sold out!");
-				else
-				sb.append("Item is in stock!");
-				sb.append(newLine);
-			}
-			return sb.toString();
-			
-		}
-    	
-    }
-
     public EmailTemplate(){
     	
     }
@@ -132,21 +52,6 @@ public class EmailTemplate implements Serializable{
 	}
 
 
-//	public Content[] getContent() {
-//		return content;
-//	}
-//	
-//	public String getAllContent(){
-//		StringBuilder sb = new StringBuilder();
-//		for(Content c : content){
-//			sb.append(c.toString());
-//		}
-//		return sb.toString();
-//	}
-//
-//	public void setContent(Content[] content) {
-//		this.content = content;
-//	}
 
 	public String getSigniture() {
 		return signiture;
